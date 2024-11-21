@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  LetsDefend.io PDF Analysis write-up · Degen
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="degenware">
+<meta name="description" content="Description of the challenge:
+An employee has received a suspicious email:
+From: SystemsUpdate@letsdefend.io
+To: Paul@letsdefend.io
+Subject: Critical — Annual Systems UPDATE NOW
+Body: Please do the dutiful before the deadline today.
+Attachment: Update.pdf Password: letsdefend
+The employee has reported this incident to you as the analyst which has also forwarded the attachment to your SIEM. They have mentioned that they did not download or open the attachment as they found it very suspicious. They wish for you to analyze it further to verify its legitimacy.">
+<meta name="keywords" content="blog,cybersecurity,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LetsDefend.io PDF Analysis write-up">
+  <meta name="twitter:description" content="Description of the challenge:
+An employee has received a suspicious email:
+From: SystemsUpdate@letsdefend.io
+To: Paul@letsdefend.io
+Subject: Critical — Annual Systems UPDATE NOW
+Body: Please do the dutiful before the deadline today.
+Attachment: Update.pdf Password: letsdefend
+The employee has reported this incident to you as the analyst which has also forwarded the attachment to your SIEM. They have mentioned that they did not download or open the attachment as they found it very suspicious. They wish for you to analyze it further to verify its legitimacy.">
+
+<meta property="og:url" content="http://localhost:1313/posts/ldpdf/">
+  <meta property="og:site_name" content="Degen">
+  <meta property="og:title" content="LetsDefend.io PDF Analysis write-up">
+  <meta property="og:description" content="Description of the challenge:
+An employee has received a suspicious email:
+From: SystemsUpdate@letsdefend.io
+To: Paul@letsdefend.io
+Subject: Critical — Annual Systems UPDATE NOW
+Body: Please do the dutiful before the deadline today.
+Attachment: Update.pdf Password: letsdefend
+The employee has reported this incident to you as the analyst which has also forwarded the attachment to your SIEM. They have mentioned that they did not download or open the attachment as they found it very suspicious. They wish for you to analyze it further to verify its legitimacy.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-11T07:07:07+01:00">
+    <meta property="article:modified_time" content="2024-09-11T07:07:07+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/ldpdf/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Degen
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/ldpdf/">
+              LetsDefend.io PDF Analysis write-up
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-09-11T07:07:07&#43;01:00">
+                September 11, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p><strong>Description of the challenge:</strong></p>
+<p><em>An employee has received a suspicious email:</em></p>
+<p><em>From: <a href="mailto:SystemsUpdate@letsdefend.io" >SystemsUpdate@letsdefend.io</a></em></p>
+<p><em>To: <a href="mailto:Paul@letsdefend.io" >Paul@letsdefend.io</a></em></p>
+<p><em>Subject: Critical — Annual Systems UPDATE NOW</em></p>
+<p><em>Body: Please do the dutiful before the deadline today.</em></p>
+<p><em>Attachment: Update.pdf Password: letsdefend</em></p>
+<p><em>The employee has reported this incident to you as the analyst which has also forwarded the attachment to your SIEM. They have mentioned that they did not download or open the attachment as they found it very suspicious. They wish for you to analyze it further to verify its legitimacy.</em></p>
+<p><strong>Solution:</strong></p>
+<p>First I ran &lsquo;strings&rsquo; on the pdf file</p>
+<blockquote>
+<p>strings Update.pdf &gt; strings.txt</p>
+</blockquote>
+<p>I quickly stumbled upon some encoded powershell command</p>
+<p><img src="images/img1.png" alt="alt"></p>
+<p>By applying the correct recipe in CyberChef I decoded the command</p>
+<p><img src="images/img2.png" alt="alt"></p>
+<p>There are answers to the first 3 questions of the challenge</p>
+<p><em>What local directory name would have been targeted by the malware?</em></p>
+<p>C:\Documents\</p>
+<p><em>What would have been the name of the file created by the payload?</em></p>
+<p>D0csz1p</p>
+<p><em>What file type would this have been if it were created?</em></p>
+<p>zip</p>
+<p>Going back to the strings output there is some obfuscated javascript code</p>
+<p><img src="images/img3.png" alt="alt"></p>
+<p>After searching online for &lsquo;javascript unpacker&rsquo; I found this tool that deobfuscated the code for me <a href="https://matthewfl.com/unPacker.html"  class="external-link" target="_blank" rel="noopener">https://matthewfl.com/unPacker.html</a></p>
+<p><img src="images/img4.png" alt="alt"></p>
+<p>From that I got the answers to the next 3 questions</p>
+<p><em>Which external web domain would the malware have attempted to interact with?</em></p>
+<p>filebin.net</p>
+<p><em>Which HTTP method would it have used to interact with this service?</em></p>
+<p>POST</p>
+<p><em>What is the name of the obfuscation used for the Javascript payload?</em></p>
+<p>eval</p>
+<p>Again I turned back to the strings output where I found more powershell code</p>
+<p><img src="images/img5.png" alt="alt"></p>
+<p>I analysed it by running the code in a Windows virtual machine and instead of Invoking Expression I simply printed out the decoded command</p>
+<p><img src="images/img6.png" alt="alt"></p>
+<p>From this I got another answers</p>
+<p><em>Which tool would have been used for creating the persistence mechanism?</em></p>
+<p>wmic - it’s a WMI command line. What’s WMI then? Windows Management Instrumentation - infrastructure for management data and operations on Windows</p>
+<p><em>How often would the persistence be executed once Windows starts? (format: X.X hours)?</em></p>
+<p>The answer is in a WMI query</p>
+<blockquote>
+<p>SELECT * FROM __InstanceModificationEvent WITHIN 9000 WHERE TargetInstance ISA &lsquo;Win32_PerfformattedData_PerfOS_System&rsquo;</p>
+</blockquote>
+<p>&lsquo;WITHIN 9000&rsquo; indicates a polling interval in seconds (2.5 hours)</p>
+<p><em>Which LOLBin would have been used in the persistence method?</em></p>
+<p>powerpnt.exe (LOLBin — Living Off the Land Binary — legitimate program used to hide malicious activity)</p>
+<p><em>What is the filename that would have been downloaded and executed using the LOLbin?</em></p>
+<p>wallpaper482.scr</p>
+<p><em>Where would this have been downloaded from? (format: IP address)</em></p>
+<p>60.187.184.54</p>
+<p>To get the answer for the last question I simply went to <a href="https://ipgeolocation.io/"  class="external-link" target="_blank" rel="noopener">https://ipgeolocation.io/</a></p>
+<p><img src="images/img7.png" alt="alt"></p>
+<p><em>Which country is this IP Address located in?</em></p>
+<p>China</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2024
+     degenware 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

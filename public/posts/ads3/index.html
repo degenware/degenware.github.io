@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Active Directory/Splunk project PART 3 · Degen
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="degenware">
+<meta name="description" content="Attacking Active Directory
+For testing purposes kali machine was in the same network as the AD machines (like an internal pentest) and I created a file with all the domain users. That kind of information could be retrieved through OSINT
+Bruteforcing RDP
+I enabled RDP on workstation machine as reflected in the nmap scan
+
+I then used the tool called &lsquo;crowbar&rsquo; to bruteforce attack the RDP
+
+Viewing the logs in Splunk a ton of events with code 4625 could be seen">
+<meta name="keywords" content="blog,cybersecurity,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Active Directory/Splunk project PART 3">
+  <meta name="twitter:description" content="Attacking Active Directory
+For testing purposes kali machine was in the same network as the AD machines (like an internal pentest) and I created a file with all the domain users. That kind of information could be retrieved through OSINT
+Bruteforcing RDP
+I enabled RDP on workstation machine as reflected in the nmap scan
+I then used the tool called ‘crowbar’ to bruteforce attack the RDP
+Viewing the logs in Splunk a ton of events with code 4625 could be seen">
+
+<meta property="og:url" content="http://localhost:1313/posts/ads3/">
+  <meta property="og:site_name" content="Degen">
+  <meta property="og:title" content="Active Directory/Splunk project PART 3">
+  <meta property="og:description" content="Attacking Active Directory
+For testing purposes kali machine was in the same network as the AD machines (like an internal pentest) and I created a file with all the domain users. That kind of information could be retrieved through OSINT
+Bruteforcing RDP
+I enabled RDP on workstation machine as reflected in the nmap scan
+I then used the tool called ‘crowbar’ to bruteforce attack the RDP
+Viewing the logs in Splunk a ton of events with code 4625 could be seen">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-07-21T07:07:07+01:00">
+    <meta property="article:modified_time" content="2024-07-21T07:07:07+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/ads3/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Degen
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/ads3/">
+              Active Directory/Splunk project PART 3
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-07-21T07:07:07&#43;01:00">
+                July 21, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p><strong>Attacking Active Directory</strong></p>
+<p>For testing purposes kali machine was in the same network as the AD machines (like an internal pentest) and I created a file with all the domain users. That kind of information could be retrieved through OSINT</p>
+<p><strong>Bruteforcing RDP</strong></p>
+<p>I enabled RDP on workstation machine as reflected in the nmap scan</p>
+<p><img src="images/img1.png" alt="alt"></p>
+<p>I then used the tool called &lsquo;crowbar&rsquo; to bruteforce attack the RDP</p>
+<p><img src="images/img2.png" alt="alt"></p>
+<p>Viewing the logs in Splunk a ton of events with code 4625 could be seen</p>
+<p><img src="images/img3.png" alt="alt"></p>
+<p>So what does this code mean? It’s a login failure event</p>
+<p><img src="images/img4.png" alt="alt"></p>
+<p>These are all the failed attempts at guessing the password, generating a lot of noise</p>
+<p><strong>Enumerating the domain with BloodHound</strong></p>
+<p><em>BloodHound uses graph theory to reveal the hidden and often unintended relationships within an Active Directory or Azure environment — <a href="https://github.com/BloodHoundAD/BloodHound"  class="external-link" target="_blank" rel="noopener">https://github.com/BloodHoundAD/BloodHound</a></em></p>
+<p>Before running any commands I had to modify the /etc/resolv.conf file and change the IP of the nameserver to the Domain Controller IP as well as add an entry to my /etc/hosts file</p>
+<p><img src="images/img5.png" alt="alt"></p>
+<p><img src="images/img6.png" alt="alt"></p>
+<p>Then I collected the data about AD using the credentials I found in RDP attack smalkinson: Disn3yPlu5!. The tool for this is bloodhound-python</p>
+<p><img src="images/img7.png" alt="alt"></p>
+<p>The result was 7 json files with the data collected about the domain</p>
+<p><img src="images/img8.png" alt="alt"></p>
+<p>All this data could then be imported into bloodhound to visualize and analyze the domain</p>
+<p><img src="images/img9.png" alt="alt"></p>
+<p>This serves as a great map for future attacks. Another tool that can be used for enumeration is enum4linux</p>
+<p><img src="images/img10.png" alt="alt"></p>
+<p>In the output I found passwords stored in the description which is a really bad practice</p>
+<p><img src="images/img11.png" alt="alt"></p>
+<p>That concludes building a home lab Active Directory with Splunk. The infrastructure serves as a great training ground for exploring possible attacks and analyzing the telemetry generated</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2024
+     degenware 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

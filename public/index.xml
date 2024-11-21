@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Degen</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Degen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Nov 2024 07:07:07 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe Hunt Me II: Typo Squatters write-up</title>
+      <link>http://localhost:1313/posts/huntme2/</link>
+      <pubDate>Thu, 14 Nov 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/huntme2/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Just working on a typical day as a software engineer, Perry received an encrypted 7z archive from his boss containing a snippet of a source code that must be completed within the day. Realising that his current workstation does not have an application that can unpack the file, he spins up his browser and starts to search for software that can aid in accessing the file. Without validating the resource, Perry immediately clicks the first search engine result and installs the application.&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>TryHackMe Hunt Me I: Payment Collectors write-up</title>
+      <link>http://localhost:1313/posts/huntme1/</link>
+      <pubDate>Thu, 07 Nov 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/huntme1/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;On Friday, September 15, 2023, Michael Ascot, a Senior Finance Director from SwiftSpend, was checking his emails in Outlook and came across an email appearing to be from Abotech Waste Management regarding a monthly invoice for their services. Michael actioned this email and downloaded the attachment to his workstation without thinking. The following week, Michael received another email from his contact at Abotech claiming they were recently hacked and to carefully review any attachments sent by their employees. However, the damage has already been done. Use the attached Elastic instance to hunt for malicious activity on Michael&amp;rsquo;s workstation and within the SwiftSpend domain!&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HackTheBox EncryptionBot write-up</title>
+      <link>http://localhost:1313/posts/encbot/</link>
+      <pubDate>Wed, 30 Oct 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/encbot/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;CHALLENGE DESCRIPTION&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;My friend send me a encrypted message by using encryption bot. This is a important message. Can you decrypt the message for me?&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;There is encrypted flag and elf file provided&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Running the program to see what it does&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s open up ghidra and try to reverse engineer this. First step is to identify the main function. Checking the &amp;rsquo;entry&amp;rsquo; function that runs at the start we can find what function is loaded before calling libc_start_main. Thats our main function&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HackTheBox - logjammer write-up</title>
+      <link>http://localhost:1313/posts/logjammer/</link>
+      <pubDate>Wed, 16 Oct 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/logjammer/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;You have been presented with the opportunity to work as a junior DFIR consultant for a big consultancy. However, they have provided a technical assessment for you to complete. The consultancy Forela-Security would like to gauge your Windows Event Log Analysis knowledge. We believe the Cyberjunkie user logged in to his computer and may have taken malicious actions. Please analyze the given event logs and report back.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;There is a zip file attached with windows event logs files. I uploaded them to splunk for easier analysis&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>TryHackMe Gatekeeper write-up</title>
+      <link>http://localhost:1313/posts/gatekeeper/</link>
+      <pubDate>Thu, 03 Oct 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/gatekeeper/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Can you get past the gate and through the fire?&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Enumeration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;On port 31337 there is a program running that takes our input. It crashes when providing a big input confirming it&amp;rsquo;s vulnerable to buffer overflow&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;We can download the program via smb as guest login is enabled&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img3.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img4.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Exploiting Buffer Overflow&lt;/strong&gt;&#xA;I copied the gatekepper.exe file to Windows machine with Immunity Debugger and started testing the program using scripts from &lt;a href=&#34;https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst&lt;/a&gt;&#xA;Let&amp;rsquo;s create a unique pattern so we can determine the offset of the EIP&#xA;&lt;code&gt;/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 600&lt;/code&gt;&#xA;After sending the payload we copy the value of EIP shown in the Immunity Debugger&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Investigating with Splunk - TryHackMe write-up</title>
+      <link>http://localhost:1313/posts/thmsplunk/</link>
+      <pubDate>Sun, 22 Sep 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/thmsplunk/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Story:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;SOC Analyst &lt;strong&gt;Johny&lt;/strong&gt; has observed some anomalous behaviours in the logs of a few windows machines. It looks like the adversary has access to some of these machines and successfully created some backdoor. His manager has asked him to pull those logs from suspected hosts and ingest them into Splunk for quick investigation. Our task as SOC Analyst is to examine the logs and identify the anomalies.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Questions:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;em&gt;How many events were collected and Ingested in the index &lt;strong&gt;main&lt;/strong&gt;?&lt;/em&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>LetsDefend.io PDF Analysis write-up</title>
+      <link>http://localhost:1313/posts/ldpdf/</link>
+      <pubDate>Wed, 11 Sep 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/ldpdf/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Description of the challenge:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;An employee has received a suspicious email:&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;From: &lt;a href=&#34;mailto:SystemsUpdate@letsdefend.io&#34; &gt;SystemsUpdate@letsdefend.io&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;To: &lt;a href=&#34;mailto:Paul@letsdefend.io&#34; &gt;Paul@letsdefend.io&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Subject: Critical — Annual Systems UPDATE NOW&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Body: Please do the dutiful before the deadline today.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Attachment: Update.pdf Password: letsdefend&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;The employee has reported this incident to you as the analyst which has also forwarded the attachment to your SIEM. They have mentioned that they did not download or open the attachment as they found it very suspicious. They wish for you to analyze it further to verify its legitimacy.&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Offsec Proving Grounds Pwned1 write-up</title>
+      <link>http://localhost:1313/posts/pwned1/</link>
+      <pubDate>Sat, 24 Aug 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/pwned1/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Enumeration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Checking out port 80&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I also checked the page source but found nothing interesting. Let&amp;rsquo;s run gobuster&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img3.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;In the /nothing directory there was nothing surprisingly but in the /hidden_text there is a secret.dic file&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img4.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I run gobuster again but this time using the list from secret.dic and verified that only /pwned.vuln exists&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img5.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;When visiting the /pwned.vuln there is a login page but the page source has something more interesting - credentials&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>TryHackMe Mr Robot CTF write-up</title>
+      <link>http://localhost:1313/posts/mrrobot/</link>
+      <pubDate>Sun, 11 Aug 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/mrrobot/</guid>
+      <description>&lt;p&gt;Nmap scan to start with&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s check out port 80&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Trying out these commands while running gobuster in the meantime&#xA;The commands aren&amp;rsquo;t doing anything useful however gobuster found a lot of stuff&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img3.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;There are wp* directories so we now know it&amp;rsquo;s a wordpress site. Starting with the easiest step, checking out /robots directory&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img4.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Well now we need to simply visit /key-1-of-3.txt and we have our first key. While we are here we can also check out fsocity.dic&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Active Directory/Splunk project PART 3</title>
+      <link>http://localhost:1313/posts/ads3/</link>
+      <pubDate>Sun, 21 Jul 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/ads3/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Attacking Active Directory&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;For testing purposes kali machine was in the same network as the AD machines (like an internal pentest) and I created a file with all the domain users. That kind of information could be retrieved through OSINT&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Bruteforcing RDP&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;I enabled RDP on workstation machine as reflected in the nmap scan&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;I then used the tool called &amp;lsquo;crowbar&amp;rsquo; to bruteforce attack the RDP&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Viewing the logs in Splunk a ton of events with code 4625 could be seen&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Active Directory/Splunk project PART 2</title>
+      <link>http://localhost:1313/posts/ads2/</link>
+      <pubDate>Wed, 10 Jul 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/ads2/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Configuring Active Directory&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;First I assigned a static IP to my Windows server&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Then in the Server Manager I added &amp;lsquo;Roles and Features&amp;rsquo; in the &amp;lsquo;Manage&amp;rsquo; section. During the installation I selected Role-based installation with Active Directory Domain Services role&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;After successful installation I promoted the server to domain controller and created new domain XYZ&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img3.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img4.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;After all was configured it was time to populate the AD with some objects (users, groups etc). It can be done using GUI or with powershell. I opted for the latter option using the script from &lt;a href=&#34;https://github.com/safebuffer/vulnerable-AD/tree/master&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/safebuffer/vulnerable-AD/tree/master&lt;/a&gt; to create a vulnerable AD so I could attack it later&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Active Directory/Splunk project PART 1</title>
+      <link>http://localhost:1313/posts/ads1/</link>
+      <pubDate>Sun, 30 Jun 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/ads1/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Objectives:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Setting up Splunk server to analyze events&lt;/p&gt;&#xA;&lt;p&gt;Learning the basics of Active Directory&lt;/p&gt;&#xA;&lt;p&gt;Attacking the AD to see what kind of telemetry it produces&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Project setup overview:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;· Active Directory Server (with Splunk Universal Forwarder and Sysmon installed)&lt;/p&gt;&#xA;&lt;p&gt;· Windows workstation (with Splunk Universal Forwarder and Sysmon installed)&lt;/p&gt;&#xA;&lt;p&gt;· Splunk Server&lt;/p&gt;&#xA;&lt;p&gt;· Kali Linux machine for attacking the AD&lt;/p&gt;&#xA;&lt;p&gt;· All the machines are in the same NAT network so that they can have internet access and can communicate with each other&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Offsec Proving Grounds NoName write-up</title>
+      <link>http://localhost:1313/posts/noname/</link>
+      <pubDate>Fri, 14 Jun 2024 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/noname/</guid>
+      <description>&lt;p&gt;Starting with basic enumeration&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Only port 80 is open so let’s see what’s there&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img2.png&#34; alt=&#34;alt&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;It seems like some remote code execution. Lets test it by putting &amp;rsquo;test&amp;rsquo; value. We get a &amp;lsquo;Fake ping executed&amp;rsquo; message so the assumption is that the command ping &amp;lt; value &amp;gt; gets executed on the backend. Trying to execute another command by inputting &amp;lsquo;; whoami&amp;rsquo; , &amp;lsquo;| whoami&amp;rsquo; or &amp;lsquo;&amp;amp;&amp;amp; whoami&amp;rsquo; doesn’t return anything though. Let’s enumerate further&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

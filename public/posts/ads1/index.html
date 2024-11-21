@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Active Directory/Splunk project PART 1 · Degen
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="degenware">
+<meta name="description" content="Objectives:
+Setting up Splunk server to analyze events
+Learning the basics of Active Directory
+Attacking the AD to see what kind of telemetry it produces
+Project setup overview:
+· Active Directory Server (with Splunk Universal Forwarder and Sysmon installed)
+· Windows workstation (with Splunk Universal Forwarder and Sysmon installed)
+· Splunk Server
+· Kali Linux machine for attacking the AD
+· All the machines are in the same NAT network so that they can have internet access and can communicate with each other">
+<meta name="keywords" content="blog,cybersecurity,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Active Directory/Splunk project PART 1">
+  <meta name="twitter:description" content="Objectives:
+Setting up Splunk server to analyze events
+Learning the basics of Active Directory
+Attacking the AD to see what kind of telemetry it produces
+Project setup overview:
+· Active Directory Server (with Splunk Universal Forwarder and Sysmon installed)
+· Windows workstation (with Splunk Universal Forwarder and Sysmon installed)
+· Splunk Server
+· Kali Linux machine for attacking the AD
+· All the machines are in the same NAT network so that they can have internet access and can communicate with each other">
+
+<meta property="og:url" content="http://localhost:1313/posts/ads1/">
+  <meta property="og:site_name" content="Degen">
+  <meta property="og:title" content="Active Directory/Splunk project PART 1">
+  <meta property="og:description" content="Objectives:
+Setting up Splunk server to analyze events
+Learning the basics of Active Directory
+Attacking the AD to see what kind of telemetry it produces
+Project setup overview:
+· Active Directory Server (with Splunk Universal Forwarder and Sysmon installed)
+· Windows workstation (with Splunk Universal Forwarder and Sysmon installed)
+· Splunk Server
+· Kali Linux machine for attacking the AD
+· All the machines are in the same NAT network so that they can have internet access and can communicate with each other">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-30T07:07:07+01:00">
+    <meta property="article:modified_time" content="2024-06-30T07:07:07+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/ads1/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Degen
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/ads1/">
+              Active Directory/Splunk project PART 1
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-06-30T07:07:07&#43;01:00">
+                June 30, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p><strong>Objectives:</strong></p>
+<p>Setting up Splunk server to analyze events</p>
+<p>Learning the basics of Active Directory</p>
+<p>Attacking the AD to see what kind of telemetry it produces</p>
+<p><strong>Project setup overview:</strong></p>
+<p>· Active Directory Server (with Splunk Universal Forwarder and Sysmon installed)</p>
+<p>· Windows workstation (with Splunk Universal Forwarder and Sysmon installed)</p>
+<p>· Splunk Server</p>
+<p>· Kali Linux machine for attacking the AD</p>
+<p>· All the machines are in the same NAT network so that they can have internet access and can communicate with each other</p>
+<p>To accomplish this I followed tutorials and documentations</p>
+<p><strong>Setting up the environment in VirtualBox</strong></p>
+<ol>
+<li>Configuring Splunk Server</li>
+</ol>
+<p>First I edited the 00-installer-config.yaml file — the only file in /etc/netplan directory</p>
+<p><img src="images/img1.png" alt="alt"></p>
+<p>I disabled dhcp and assigned a static IP address of 192.168.10.10 as my AD network is 192.168.10.0/24. Then I set up a DNS server to google’s server 8.8.8.8 and route to default via the gateway in the AD network. I applied the changes with the command</p>
+<blockquote>
+<p>sudo netplan apply</p>
+</blockquote>
+<p>To install splunk I copied the installation file to the machine and run the command</p>
+<blockquote>
+<p>sudo dpkg -i &lt;splunk.deb file&gt;</p>
+</blockquote>
+<p><img src="images/img2.png" alt="alt"></p>
+<p>As the files are owned by user &lsquo;splunk&rsquo; I changed into it and from the bin directory ran ./splunk start</p>
+<p><img src="images/img3.png" alt="alt"></p>
+<p>To ensure that splunk starts on boot (as user ‘splunk’) I ran the command</p>
+<blockquote>
+<p>sudo ./splunk enable boot-start -user splunk</p>
+</blockquote>
+<p><img src="images/img4.png" alt="alt"></p>
+<ol start="2">
+<li>Installing Splunk Universal Forwarder and Sysmon on both Windows machines (the domain controller and workstation)</li>
+</ol>
+<p>First I downloaded the universal forwarder from the splunk website directly on my server and ran the installer. I left the &lsquo;Deployment Server&rsquo; empty and put the IP of my splunk server as &lsquo;Receiving Indexer&rsquo;</p>
+<p><img src="images/img5.png" alt="alt"></p>
+<p>Next up I installed sysmon with config from <a href="https://github.com/olafhartong/sysmon-modular"  class="external-link" target="_blank" rel="noopener">https://github.com/olafhartong/sysmon-modular</a></p>
+<p><img src="images/img6.png" alt="alt"></p>
+<p>Then I addded inputs.conf to SplunkUniversalForwarder\etc\system\local to specify what kind of data will be send over to the server</p>
+<p><img src="images/img7.png" alt="alt"></p>
+<p>I changed the &rsquo;log on as&rsquo; option of the SplunkForwarder service to avoid problems with permissions</p>
+<p><img src="images/img8.png" alt="alt"></p>
+<p>After that I accessed my splunk server on port 8000 and went to &lsquo;Settings -&gt; Indexes&rsquo; to create the index declared in my inputs.conf file (endpoint)</p>
+<p><img src="images/img9.png" alt="alt"></p>
+<p>Then in &lsquo;Settings -&gt; Forwarding and receiving -&gt; Configure receiving&rsquo; I added new receiving port — the one declared during installation — 9997</p>
+<p><img src="images/img10.png" alt="alt"></p>
+<p>To verify if I set it up correctly I searched index=&ldquo;endpoint&rdquo; and got some events with the host of DC-01 which is the name of my Windows server</p>
+<p><img src="images/img11.png" alt="alt"></p>
+<p>I repeated the same process on the Workstation machine and at the end verified whether I received data from both hosts</p>
+<p><img src="images/img12.png" alt="alt"></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2024
+     degenware 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

