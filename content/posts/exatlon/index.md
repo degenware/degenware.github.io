@@ -26,15 +26,15 @@ Now we can analyze it in ghidra
 
 ![alt](images/img5.png)
 
-Of course we start with the main function. We find the string asking user for a password. Then we see that the output of the 'exatlon' function is compared to what seems to be some encoded string. We can also see that even if we provide correct password the only thing we get is a "Looks Good" message, no flag is returned. Let's look at the 'exatlon' function so hopefully we can decode the string, which seems to be the flag
+Of course we start with the main function. We find the string asking user for a password. Then we see that the output of the 'exatlon' function is compared to what seems to be some encrypted string. We can also see that even if we provide correct password the only thing we get is a "Looks Good" message, no flag is returned. Let's look at the 'exatlon' function so hopefully we can decrypt the string, which seems to be the flag
 
 ![alt](images/img6.png)
 
-It looks really ugly because of the C++ syntax. Still we can identify how the mystery string is encoded
+It looks really ugly because of the C++ syntax. Still we can identify how the mystery string is encrypted
 
 ![alt](images/img7.png)
 
-This is the most important part of the function. It iterates through the string provided and it **left** shifts each character (converted to int) by 4, which essentially means that the value is multiplied by 16 (2^4). So now that we found a probable encoding let's test it on the string we found
+This is the most important part of the function. It iterates through the string provided and it **left** shifts each character (converted to int) by 4, which essentially means that the value is multiplied by 16 (2^4). So now that we found a probable encryption let's test it on the string we found
 
 ![alt](images/img8.png)
 
