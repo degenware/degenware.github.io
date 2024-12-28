@@ -18,7 +18,7 @@ First 2 instructions are the standard function prologue, then the argument passe
 
 ![alt](images/img3.png)
 
-We start with another comparison between our argument and 0x6fa and then we jump if the values are not equal. In our case they are equal so we move on to the next instructions. We move our argument to eax, we substract 0x12 from it and jump to <+60> which is the end of the function. So the result is 0x6fa - 0x12 = 0x6e8
+We start with another comparison between our argument and 0x6fa and then we jump if the values are not equal. In our case they are equal so we move on to the next instructions. We move our argument to eax, we subtract 0x12 from it and jump to <+60> which is the end of the function. So the result is 0x6fa - 0x12 = 0x6e8
 
 **ASM2 Challenge**
 
@@ -30,7 +30,7 @@ Like in the first challenge we are provided with assembly code
 
 ![alt](images/img4.png)
 
-Again, first two instructions are the function prologue, then we substract from esp (stack pointer), securing this space on the stack for our local variables. We substract because the stack grows downwards meaning it starts at the highest address and goes lower and lower
+Again, first two instructions are the function prologue, then we subtract from esp (stack pointer), securing this space on the stack for our local variables. We subtract because the stack grows downwards meaning it starts at the highest address and goes lower and lower
 
 ![alt](images/img5.png)
 
